@@ -14,12 +14,13 @@ Pengerjaan Project TIM CC26-PSU386
 ## 🏗️ Struktur Proyek
 
 ```
-├── dashboard.py          # Aplikasi dashboard Streamlit (SentiVest)
-├── Readme.md             # Tata cara menjalankan proyek
-├── requirements.txt      # Daftar dependensi Python
 └── Dataset/
     ├── berita.py         # Scraper berita dari Google News RSS
     └── mainn.py          # Pipeline: sentimen + data saham + pembuatan dataset final
+├── Readme.md             # Tata cara menjalankan proyek
+├── dashboard.py          # Aplikasi dashboard Streamlit (SentiVest)
+├── notebook.ipynb        # Proses analisis data
+├── requirements.txt      # Daftar dependensi Python
 ```
 
 ---
@@ -100,7 +101,6 @@ python Dataset/mainn.py
 
 # 6. (Opsional) Eksplorasi data di Notebook
 Buka file `notebook.ipynb` menggunakan Jupyter Notebook atau VS Code untuk melihat proses analisis data secara lengkap.
-jupyter notebook notebook.ipynb
 
 # 7. Jalankan dashboard
 streamlit run dashboard.py
