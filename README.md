@@ -131,6 +131,53 @@ Dashboard akan terbuka otomatis di browser pada `http://localhost:8501`.
 > Dashboard saat ini menampilkan sinyal untuk **BBCA, BBRI, BMRI, BBNI** (sesuai dataset final yang tersedia).
 
 ---
+## 📖 Data Dictionary
+
+### 1. `data/berita.csv` — Data Mentah Berita
+
+File hasil scraping dari Google News RSS sebelum diproses.
+
+| Kolom | Tipe | Contoh | Keterangan |
+|---|---|---|---|
+| `Date` | Date | `2024-03-15` | Tanggal berita dipublikasikan |
+| `Ticker` | String | `BBCA.JK` | Kode saham yang berkaitan dengan berita |
+| `News_Text` | String | `"BCA catat laba Rp 10T..."` | Judul berita dari Google News |
+| `Keyword` | String | `"BBCA saham"` | Kata kunci yang digunakan saat pencarian |
+| `Source` | String | `"Google News RSS"` | Sumber berita |
+| `URL` | String | `"https://..."` | Link artikel asli |
+
+---
+
+### 2. `output/final_dataset.csv` — Dataset Final
+
+File utama yang digunakan oleh dashboard, hasil gabungan berita + data saham.
+
+| Kolom | Tipe | Contoh | Keterangan |
+|---|---|---|---|
+| `Tanggal` | Date | `2024-03-15` | Tanggal berita & perdagangan saham |
+| `Ticker` | String | `BBCA.JK` | Kode saham di IDX |
+| `Teks_Berita` | String | `"BCA catat laba Rp 10T..."` | Judul berita |
+| `Nilai_Sentimen` | Float | `+0.6` | Skor sentimen hasil analisis teks |
+| `Harga_Penutupan_Saham` | Float | `9250.0` | Harga penutupan saham hari itu (IDR) |
+| `Volume` | Integer | `12000000` | Volume perdagangan saham hari itu |
+| `Target_Label` | Integer | `1` | `1` = harga naik esok hari, `0` = turun |
+
+#### Keterangan Nilai Sentimen
+
+| Nilai | Kategori | Artinya |
+|---|---|---|
+| `+0.6` | Positif | Berita mengandung kata positif lebih banyak |
+| `0.0` | Netral | Tidak ada kata positif maupun negatif yang dominan |
+| `-0.6` | Negatif | Berita mengandung kata negatif lebih banyak |
+
+#### Keterangan MA5 Sentimen (digunakan di dashboard)
+
+| Nilai MA5 | Sinyal | Artinya |
+|---|---|---|
+| `> 0.05` | 🟢 BUY | Rata-rata sentimen 5 hari terakhir positif |
+| `-0.05` s/d `0.05` | 🟡 HOLD | Sentimen cenderung netral |
+| `< -0.05` | 🔴 SELL | Rata-rata sentimen 5 hari terakhir negatif |
+
 
 ## 📁 Format Dataset Final
 
