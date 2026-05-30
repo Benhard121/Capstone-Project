@@ -108,20 +108,6 @@ streamlit run dashboard.py
 Dashboard akan terbuka otomatis di browser pada `http://localhost:8501`.
 ---
 
-
-## 🛠️ Teknologi yang Digunakan
-
-| Kategori | Library |
-|---|---|
-| Dashboard UI | `streamlit`, `plotly` |
-| Manipulasi Data | `pandas`, `numpy` |
-| Data Saham | `yfinance` |
-| Scraping Berita | `feedparser` |
-| Machine Learning (opsional) | `scikit-learn` |
-| Visualisasi Tambahan | `matplotlib`, `seaborn` |
-
----
-
 ## 📈 Ticker Saham yang Didukung
 
 | Ticker | Perusahaan |
