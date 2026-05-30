@@ -47,13 +47,23 @@ Pengerjaan Project TIM CC26-PSU386
 - Dibangun dengan **Streamlit** dan **Plotly**
 - Dataset dimuat dari GitHub repository secara langsung
 
+### 4. Evaluasi Threshold (A/B Testing)
+
+Untuk menentukan batas sinyal investasi yang paling sesuai, dilakukan A/B Testing terhadap beberapa nilai threshold pada rata-rata sentimen 5 hari (MA5 Sentimen).
+Perbandingan dilakukan antara threshold 0.05 dan 0.20 menggunakan metrik:
+* Accuracy
+* Precision
+* Recall
+* F1-Score
+Hasil pengujian menunjukkan bahwa threshold 0.20 menghasilkan nilai Recall dan F1-Score yang lebih tinggi dibandingkan threshold 0.05, sehingga threshold 0.20 dipilih sebagai parameter pada dashboard akhir untuk membantu investor menangkap lebih banyak sinyal positif yang relevan.
+
 ---
 
 ## 📊 Fitur Dashboard
 
 | Fitur | Deskripsi |
 |---|---|
-| **Sinyal Rekomendasi** | BUY / HOLD / SELL berdasarkan MA5 sentimen |
+| **Sinyal Rekomendasi** | BUY / HOLD / SELL berdasarkan MA5 sentimen menggunakan threshold 0.20 hasil A/B Testing |
 | **KPI Cards** | Harga penutupan, MA5 sentimen, total berita, dominasi label |
 | **Chart Harga vs Sentimen** | Perbandingan harga saham & sentimen harian (30 hari) |
 | **Distribusi Sentimen** | Pie chart Positif / Netral / Negatif |
@@ -174,9 +184,9 @@ File utama yang digunakan oleh dashboard, hasil gabungan berita + data saham.
 
 | Nilai MA5 | Sinyal | Artinya |
 |---|---|---|
-| `> 0.05` | 🟢 BUY | Rata-rata sentimen 5 hari terakhir positif |
-| `-0.05` s/d `0.05` | 🟡 HOLD | Sentimen cenderung netral |
-| `< -0.05` | 🔴 SELL | Rata-rata sentimen 5 hari terakhir negatif |
+| > 0.20 | 🟢 BUY | Sentimen positif kuat |
+| -0.20 s/d 0.20 | 🟡 HOLD | Sentimen cenderung netral |
+| < -0.20 | 🔴 SELL | Sentimen negatif kuat |
 
 
 ## 📁 Format Dataset Final
