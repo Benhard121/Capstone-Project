@@ -142,13 +142,15 @@ def base_layout(height=400, title="", showlegend=True):
 # ─── Load & Preprocess ────────────────────────────────────────────────────────
 @st.cache_data(show_spinner=False)
 def load_data():
-    df = pd.read_csv("output/final_dataset.csv")
+    url = ("https://raw.githubusercontent.com/herlian93/Capstone/"
+           "refs/heads/main/dataset/final_dataset.csv")
+    df = pd.read_csv(url)
     df["Tanggal"] = pd.to_datetime(df["Tanggal"], dayfirst=False, errors="coerce")
     df = df.dropna(subset=["Tanggal"]).sort_values("Tanggal").reset_index(drop=True)
 
     def kat(v):
-        if v > 0.05:    return "Positif"
-        elif v < -0.05: return "Negatif"
+        if v > 0.20:    return "Positif"
+        elif v < -0.20: return "Negatif"
         return "Netral"
 
     df["Kategori_Sentimen"] = df["Nilai_Sentimen"].apply(kat)
@@ -160,8 +162,8 @@ def load_data():
 
 
 def sinyal(ma5):
-    if ma5 > 0.05:  return "BUY",  C_GREEN,  "▲"
-    if ma5 < -0.05: return "SELL", C_RED,    "▼"
+    if ma5 > 0.20:  return "BUY",  C_GREEN,  "▲"
+    if ma5 < -0.20: return "SELL", C_RED,    "▼"
     return "HOLD", C_YELLOW, "◆"
 
 
@@ -306,7 +308,7 @@ if len(df_30) >= 2:
         hovertemplate="<b>%{x|%d %b %Y}</b><br>Harga: Rp %{y:,.0f}<extra></extra>",
     ), row=1, col=1)
 
-    bar_colors = [C_GREEN if v > 0.05 else (C_RED if v < -0.05 else C_GREY)
+    bar_colors = [C_GREEN if v > 0.20 else (C_RED if v < -0.20 else C_GREY)
                   for v in df_30["Nilai_Sentimen"]]
     fig1.add_trace(go.Bar(
         x=df_30["Tanggal"], y=df_30["Nilai_Sentimen"],
@@ -321,10 +323,10 @@ if len(df_30) >= 2:
         hovertemplate="MA5: %{y:.4f}<extra></extra>",
     ), row=2, col=1)
 
-    fig1.add_hline(y=0.05,  line_dash="dot", line_color=rgba(C_GREEN, 0.6),
+    fig1.add_hline(y=0.20,  line_dash="dot", line_color=rgba(C_GREEN, 0.6),
                    annotation_text="BUY zone",  annotation_font_color=C_GREEN,
                    annotation_position="bottom right", row=2, col=1)
-    fig1.add_hline(y=-0.05, line_dash="dot", line_color=rgba(C_RED, 0.6),
+    fig1.add_hline(y=-0.20, line_dash="dot", line_color=rgba(C_RED, 0.6),
                    annotation_text="SELL zone", annotation_font_color=C_RED,
                    annotation_position="top right", row=2, col=1)
 
