@@ -142,9 +142,7 @@ def base_layout(height=400, title="", showlegend=True):
 # ─── Load & Preprocess ────────────────────────────────────────────────────────
 @st.cache_data(show_spinner=False)
 def load_data():
-    url = ("https://raw.githubusercontent.com/herlian93/Capstone/"
-           "refs/heads/main/dataset/final_dataset.csv")
-    df = pd.read_csv(url)
+    df = pd.read_csv("output/final_dataset.csv")
     df["Tanggal"] = pd.to_datetime(df["Tanggal"], dayfirst=False, errors="coerce")
     df = df.dropna(subset=["Tanggal"]).sort_values("Tanggal").reset_index(drop=True)
 
