@@ -89,10 +89,35 @@ venv\Scripts\activate           # Windows
 
 # 3. Install dependensi
 pip install -r requirements.txt
+```
 
-# 4. Jalankan dashboard
+**4. Kumpulkan data berita dari Google News**
+```bash
+python Dataset/berita.py
+```
+> Menghasilkan file `data/berita.csv` berisi berita per ticker saham.
+
+**5. Proses sentimen & gabungkan dengan data saham**
+```bash
+python Dataset/mainn.py
+```
+> Menghasilkan file `output/final_dataset.csv` yang siap digunakan dashboard.
+
+**6. (Opsional) Eksplorasi data di Notebook**
+
+Buka file `notebook.ipynb` menggunakan Jupyter Notebook atau VS Code untuk melihat proses analisis data secara lengkap.
+
+```bash
+jupyter notebook notebook.ipynb
+```
+
+**7. Jalankan dashboard**
+```bash
 streamlit run dashboard.py
 ```
+
+Dashboard akan terbuka otomatis di browser pada `http://localhost:8501`.
+---
 
 Dashboard akan terbuka otomatis di browser pada `http://localhost:8501`.
 
