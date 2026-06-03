@@ -269,9 +269,6 @@ body::after{
         <label class="checkbox-label">
           <input type="checkbox" name="remember"> Ingat saya
         </label>
-        @if (Route::has('password.request'))
-          <a href="{{ route('password.request') }}" class="forgot-link">Lupa password?</a>
-        @endif
       </div>
 
       <button type="submit" class="btn-primary" id="loginBtn">
