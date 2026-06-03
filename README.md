@@ -18,6 +18,7 @@ Dilampirakan juga laporan komprehensif dari proyek  `Laporan Komprehensif Capsto
 └── Dataset/
     ├── berita.py         # Scraper berita dari Google News RSS
     └── mainn.py          # Pipeline: sentimen + data saham + pembuatan dataset final
+├── Laporan Komprehensif Capstone Project CC26-PSU386.pdf   
 ├── Readme.md             # Tata cara menjalankan proyek
 ├── dashboard.py          # Aplikasi dashboard Streamlit (SentiVest)
 ├── notebook.ipynb        # Proses analisis data
