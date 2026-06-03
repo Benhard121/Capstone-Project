@@ -1,0 +1,74 @@
+# ============================================================
+# ENVIRONMENT & SECRETS — JANGAN PERNAH DI-UPLOAD!
+# ============================================================
+.env
+.env.backup
+.env.production
+.env.*.local
+
+# ============================================================
+# LARAVEL
+# ============================================================
+/vendor
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/bootstrap/cache/*.php
+
+# ============================================================
+# LOGS & CACHE
+# ============================================================
+*.log
+.phpunit.result.cache
+/.phpunit.cache
+
+# ============================================================
+# PYTHON (ai-service)
+# ============================================================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+ai-service/venv/
+ai-service/env/
+ai-service/.venv/
+ai-service/*.egg-info/
+ai-service/dist/
+ai-service/build/
+ai-service/.env
+
+# Model ML — upload ke Google Drive, bukan GitHub
+*.h5
+*.pkl
+*.pt
+*.pth
+*.onnx
+*.bin
+
+# ============================================================
+# IDE & EDITOR
+# ============================================================
+/.vscode
+/.idea
+/.nova
+/.fleet
+/.zed
+/.phpactor.json
+
+# ============================================================
+# OS FILES
+# ============================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================================
+# LARAVEL HOMESTEAD (local dev, tidak perlu di-upload)
+# ============================================================
+Homestead.json
+Homestead.yaml
+auth.json
