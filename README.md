@@ -151,7 +151,7 @@ php artisan test
 ## 🚀 Deployment
 
 Aplikasi ini di-deploy ke [Railway](https://railway.app). URL produksi:  
-`https://sentimen-news-production.up.railway.app/`
+`https://sentimennews-production.up.railway.app/`
 
 ---
 
