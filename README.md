@@ -8,6 +8,7 @@ Pengerjaan Project TIM CC26-PSU386
 ## 📌 Deskripsi Proyek
 
 **SentiVest** adalah dashboard analisis sentimen berbasis berita ekonomi yang dirancang untuk membantu investor memahami kondisi pasar saham perbankan besar di Indonesia (IDX). Sistem ini mengumpulkan berita dari Google News, menganalisis sentimen teks secara otomatis, menggabungkannya dengan data harga saham historis, lalu menyajikan hasilnya dalam dashboard interaktif berbasis Streamlit.
+Dilampirakan juga laporan komprehensif dari proyek  `Laporan Komprehensif Capstone Project CC26-PSU386.pdf`
 
 ---
 
