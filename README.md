@@ -1,59 +1,172 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📰 SentimenNews AI
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web berbasis Laravel untuk menganalisis sentimen berita secara otomatis menggunakan model AI. Pengguna dapat membaca berita terkini dan melihat hasil analisis sentimen (positif, negatif, netral) dari setiap artikel.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Tech Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Frontend:** Blade Template, CSS, Vite
+- **Backend:** Laravel 11 (PHP)
+- **Database:** PostgreSQL (via Neon.tech)
+- **AI Service:** Python (Hugging Face Space — `abdcharis-sentimen-analisis-api`)
+- **Session & Queue:** Database driver
+- **Deployment:** Railway
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 📁 Struktur Folder
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+```
+sentimen-news/
+├── ai-service/          ← Service Python untuk analisis sentimen
+├── app/                 ← Logic Laravel (Controllers, Models, dll)
+├── bootstrap/           ← Bootstrap aplikasi Laravel
+├── config/              ← Konfigurasi Laravel
+├── database/            ← Migrations & Seeders
+├── public/              ← Asset publik
+├── resources/           ← Views (Blade), CSS, JS
+├── routes/              ← Definisi routing web & API
+├── storage/             ← File storage & logs
+├── tests/               ← Unit & Feature tests
+├── .env.example         ← Template environment variable
+├── .gitignore
+├── artisan              ← CLI Laravel
+├── composer.json        ← Dependencies PHP
+├── package.json         ← Dependencies JS
+└── vite.config.js
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## ⚙️ Petunjuk Setup (Local Development)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Prasyarat
+- PHP >= 8.2
+- Composer
+- Node.js >= 18
+- PostgreSQL (atau gunakan koneksi Neon.tech)
 
-### Premium Partners
+### Langkah Instalasi
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+# 1. Clone repository
+git clone https://github.com/dotcomspace/sentimen-news.git
+cd sentimen-news
 
-## Contributing
+# 2. Install dependencies PHP
+composer install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 3. Install dependencies JavaScript
+npm install
 
-## Code of Conduct
+# 4. Salin file environment
+copy .env.example .env
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 5. Isi variabel di .env (lihat bagian Environment Variables)
 
-## Security Vulnerabilities
+# 6. Generate application key
+php artisan key:generate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 7. Jalankan migrasi database
+php artisan migrate
 
-## License
+# 8. Build asset frontend
+npm run build
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 9. Jalankan server
+php artisan serve
+```
+
+Buka browser di `http://localhost:8000`
+
+---
+
+## 🔐 Environment Variables
+
+Salin `.env.example` ke `.env`, lalu isi variabel berikut:
+
+```env
+APP_NAME="SentimenNews AI"
+APP_ENV=local
+APP_KEY=          ← generate dengan: php artisan key:generate
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+# URL AI Service (Hugging Face)
+AI_API_URL=https://abdcharis-sentimen-analisis-api.hf.space
+
+# Koneksi Database PostgreSQL
+DB_CONNECTION=pgsql
+DB_HOST=          ← host database kamu
+DB_PORT=5432
+DB_DATABASE=      ← nama database
+DB_USERNAME=      ← username database
+DB_PASSWORD=      ← password database
+DB_SSLMODE=require
+```
+
+> **Penting:** Jangan pernah meng-upload file `.env` yang berisi password asli ke repository.
+
+---
+
+## 🤖 AI Service (Python)
+
+Model analisis sentimen di-host di Hugging Face Space. Source code-nya ada di folder `ai-service/`.
+
+- **Endpoint:** `https://abdcharis-sentimen-analisis-api.hf.space`
+- **Input:** Teks artikel berita
+- **Output:** Label sentimen (`positif` / `negatif` / `netral`) beserta skor kepercayaan
+
+Untuk menjalankan AI service secara lokal:
+
+```bash
+cd ai-service
+pip install -r requirements.txt
+python app.py
+```
+
+Kemudian ubah `AI_API_URL` di `.env` ke `http://localhost:7860`.
+
+---
+
+## ✅ Fitur Utama
+
+- 📖 Membaca berita dari berbagai sumber
+- 🤖 Analisis sentimen otomatis tiap artikel (Positif / Negatif / Netral)
+- 📊 Dashboard ringkasan sentimen berita
+- 👤 Autentikasi pengguna (register & login)
+- 🗄️ Riwayat berita yang telah dianalisis
+
+---
+
+## 🧪 Menjalankan Tests
+
+```bash
+php artisan test
+```
+
+---
+
+## 🚀 Deployment
+
+Aplikasi ini di-deploy ke [Railway](https://railway.app). URL produksi:  
+`https://sentimen-news-production.up.railway.app/`
+
+---
+
+## 👥 Anggota Tim
+
+| Nama | Role |
+|------|------|
+| Abdul Charis AL Fikri | Backend Developer |
+| Muhammad Aldhan Yusuf | Frontend Developer |
+| _(isi nama anggota)_ | ML / AI Engineer |
+| _(isi nama anggota)_ | Database & Deployment |
+| _(isi nama anggota)_ | UI/UX & Documentation |
+
+---
+
+## 📄 Lisensi
+
+Proyek ini dibuat untuk keperluan Capstone Project — Coding Camp powered by DBS Foundation.
