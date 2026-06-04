@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 use App\Models\HistoryAnalisis;
 
 class SentimenController extends Controller
@@ -24,10 +25,10 @@ class SentimenController extends Controller
 
         try {
             $aiResponse = Http::timeout(60)
-    ->retry(2, 3000)
-    ->post("{$aiUrl}/predict", [
-        'teks_berita' => $request->konten_berita,
-    ]);
+                ->retry(2, 3000)
+                ->post("{$aiUrl}/predict", [
+                    'teks_berita' => $request->konten_berita,
+                ]);
 
             if ($aiResponse->failed()) {
                 return response()->json([
@@ -41,7 +42,9 @@ class SentimenController extends Controller
             $sentimen        = $aiData['sentimen']         ?? 'Netral';
             $confidenceScore = $aiData['confidence_score'] ?? 0;
 
+            // ✅ PERBAIKAN: simpan user_id agar data terikat ke user yang login
             HistoryAnalisis::create([
+                'user_id'          => Auth::id(),
                 'judul_berita'     => $request->judul ?? 'Tanpa Judul',
                 'konten'           => $request->konten_berita,
                 'hasil_sentimen'   => $sentimen,
@@ -73,16 +76,24 @@ class SentimenController extends Controller
 
     public function historyApi()
     {
-        $data = HistoryAnalisis::latest()->take(50)->get();
+        // ✅ PERBAIKAN: ambil history HANYA milik user yang sedang login
+        $data = HistoryAnalisis::where('user_id', Auth::id())
+            ->latest()
+            ->take(50)
+            ->get();
+
         return response()->json(['status' => 'success', 'data' => $data]);
     }
 
     public function stats()
     {
-        $total   = HistoryAnalisis::count();
-        $positif = HistoryAnalisis::where('hasil_sentimen', 'Positif')->count();
-        $negatif = HistoryAnalisis::where('hasil_sentimen', 'Negatif')->count();
-        $netral  = HistoryAnalisis::where('hasil_sentimen', 'Netral')->count();
+        // ✅ PERBAIKAN: hitung stats HANYA dari data user yang sedang login
+        $query   = HistoryAnalisis::where('user_id', Auth::id());
+
+        $total   = $query->count();
+        $positif = (clone $query)->where('hasil_sentimen', 'Positif')->count();
+        $negatif = (clone $query)->where('hasil_sentimen', 'Negatif')->count();
+        $netral  = (clone $query)->where('hasil_sentimen', 'Netral')->count();
 
         return response()->json([
             'status' => 'success',
